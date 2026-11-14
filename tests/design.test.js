@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+test('desk landmarks and synthetic guardrails remain explicit',()=>{assert.match(html,/class="desk-header"/);assert.match(html,/SYNTHETIC ONLY/);assert.match(html,/실계좌·실거래·현금 보상은 없습니다/);assert.match(html,/name="robots" content="noindex"/);assert.match(html,/style.css\?v=desk-20261115/);assert.match(html,/href="#workspace"/);});
+test('all pre-existing controls stay unique',()=>{for(const id of ['equity','cash','holding','fees','chart','progress','amount','buy','sell','hold','sellAll','status','play','speed','reset','result','resultText','count','empty','trades']) assert.equal((html.match(new RegExp(`id="${id}"`,'g'))||[]).length,1,id);});
